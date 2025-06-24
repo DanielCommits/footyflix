@@ -648,7 +648,7 @@ END:VCALENDAR`;
               <Button
                 size="lg"
                 variant="outline"
-                className="border-gray-600 text-white hover:bg-gray-800"
+                className="border-gray-600 text-black hover:bg-gray-800"
                 onClick={() => setShowMatchDetails(true)}
               >
                 <Info className="mr-2 h-4 w-4 md:h-5 md:w-5" />
