@@ -1,26 +1,40 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Search, Bell, Play, Share2, Info, Clock, MapPin, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import WatchPage from "./watch-page"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useState, useEffect, useRef } from "react";
+import {
+  Search,
+  Bell,
+  Play,
+  Share2,
+  Info,
+  Clock,
+  MapPin,
+  Users,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import WatchPage from "./watch-page";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Component() {
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [showShortcutHint, setShowShortcutHint] = useState(true)
-  const desktopSearchRef = useRef<HTMLInputElement>(null)
-  const mobileSearchRef = useRef<HTMLInputElement>(null)
-  const [currentView, setCurrentView] = useState("home")
-  const [selectedMatch, setSelectedMatch] = useState(null)
-  const [showMatchDetails, setShowMatchDetails] = useState(false)
-  const [reminders, setReminders] = useState(new Set())
-  const [showNotification, setShowNotification] = useState(false)
-  const [notificationMessage, setNotificationMessage] = useState("")
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [showShortcutHint, setShowShortcutHint] = useState(true);
+  const desktopSearchRef = useRef<HTMLInputElement>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
+  const [currentView, setCurrentView] = useState("home");
+  const [selectedMatch, setSelectedMatch] = useState(null);
+  const [showMatchDetails, setShowMatchDetails] = useState(false);
+  const [reminders, setReminders] = useState(new Set());
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   const liveMatches = [
     {
@@ -39,10 +53,34 @@ export default function Component() {
       corners: { home: 6, away: 3 },
       fouls: { home: 8, away: 11 },
       events: [
-        { time: "12'", type: "goal", team: "home", player: "Haaland", description: "Goal by E. Haaland" },
-        { time: "34'", type: "goal", team: "away", player: "Salah", description: "Goal by M. Salah" },
-        { time: "67'", type: "goal", team: "home", player: "De Bruyne", description: "Goal by K. De Bruyne" },
-        { time: "72'", type: "yellow", team: "away", player: "Henderson", description: "Yellow card for J. Henderson" },
+        {
+          time: "12'",
+          type: "goal",
+          team: "home",
+          player: "Haaland",
+          description: "Goal by E. Haaland",
+        },
+        {
+          time: "34'",
+          type: "goal",
+          team: "away",
+          player: "Salah",
+          description: "Goal by M. Salah",
+        },
+        {
+          time: "67'",
+          type: "goal",
+          team: "home",
+          player: "De Bruyne",
+          description: "Goal by K. De Bruyne",
+        },
+        {
+          time: "72'",
+          type: "yellow",
+          team: "away",
+          player: "Henderson",
+          description: "Yellow card for J. Henderson",
+        },
       ],
     },
     {
@@ -61,8 +99,20 @@ export default function Component() {
       corners: { home: 4, away: 2 },
       fouls: { home: 6, away: 9 },
       events: [
-        { time: "23'", type: "goal", team: "home", player: "Lewandowski", description: "Goal by R. Lewandowski" },
-        { time: "41'", type: "goal", team: "away", player: "Benzema", description: "Goal by K. Benzema" },
+        {
+          time: "23'",
+          type: "goal",
+          team: "home",
+          player: "Lewandowski",
+          description: "Goal by R. Lewandowski",
+        },
+        {
+          time: "41'",
+          type: "goal",
+          team: "away",
+          player: "Benzema",
+          description: "Goal by K. Benzema",
+        },
       ],
     },
     {
@@ -81,9 +131,27 @@ export default function Component() {
       corners: { home: 8, away: 1 },
       fouls: { home: 7, away: 12 },
       events: [
-        { time: "15'", type: "goal", team: "home", player: "Müller", description: "Goal by T. Müller" },
-        { time: "38'", type: "goal", team: "home", player: "Sané", description: "Goal by L. Sané" },
-        { time: "82'", type: "goal", team: "home", player: "Musiala", description: "Goal by J. Musiala" },
+        {
+          time: "15'",
+          type: "goal",
+          team: "home",
+          player: "Müller",
+          description: "Goal by T. Müller",
+        },
+        {
+          time: "38'",
+          type: "goal",
+          team: "home",
+          player: "Sané",
+          description: "Goal by L. Sané",
+        },
+        {
+          time: "82'",
+          type: "goal",
+          team: "home",
+          player: "Musiala",
+          description: "Goal by J. Musiala",
+        },
       ],
     },
     {
@@ -102,12 +170,30 @@ export default function Component() {
       corners: { home: 3, away: 5 },
       fouls: { home: 9, away: 7 },
       events: [
-        { time: "28'", type: "goal", team: "away", player: "Leão", description: "Goal by R. Leão" },
-        { time: "55'", type: "goal", team: "away", player: "Giroud", description: "Goal by O. Giroud" },
-        { time: "60'", type: "yellow", team: "home", player: "Rabiot", description: "Yellow card for A. Rabiot" },
+        {
+          time: "28'",
+          type: "goal",
+          team: "away",
+          player: "Leão",
+          description: "Goal by R. Leão",
+        },
+        {
+          time: "55'",
+          type: "goal",
+          team: "away",
+          player: "Giroud",
+          description: "Goal by O. Giroud",
+        },
+        {
+          time: "60'",
+          type: "yellow",
+          team: "home",
+          player: "Rabiot",
+          description: "Yellow card for A. Rabiot",
+        },
       ],
     },
-  ]
+  ];
 
   const upcomingMatches = [
     {
@@ -140,48 +226,56 @@ export default function Component() {
       stadium: "Wanda Metropolitano",
       image: "/images/stadium-3.jpg",
     },
-  ]
+  ];
 
   const watchMatch = (match) => {
-    setSelectedMatch(match)
-    setCurrentView("watch")
-  }
+    setSelectedMatch(match);
+    setCurrentView("watch");
+  };
 
   const goBack = () => {
-    setCurrentView("home")
-    setSelectedMatch(null)
-  }
+    setCurrentView("home");
+    setSelectedMatch(null);
+  };
 
   const setReminder = (matchId, matchInfo) => {
-    const newReminders = new Set(reminders)
+    const newReminders = new Set(reminders);
     if (reminders.has(matchId)) {
-      newReminders.delete(matchId)
-      setNotificationMessage(`Reminder removed for ${matchInfo.homeTeam} vs ${matchInfo.awayTeam}`)
+      newReminders.delete(matchId);
+      setNotificationMessage(
+        `Reminder removed for ${matchInfo.homeTeam} vs ${matchInfo.awayTeam}`
+      );
     } else {
-      newReminders.add(matchId)
-      setNotificationMessage(`Reminder set for ${matchInfo.homeTeam} vs ${matchInfo.awayTeam} at ${matchInfo.time}`)
+      newReminders.add(matchId);
+      setNotificationMessage(
+        `Reminder set for ${matchInfo.homeTeam} vs ${matchInfo.awayTeam} at ${matchInfo.time}`
+      );
 
       // Request notification permission if not already granted
-      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
-        Notification.requestPermission()
+      if (
+        typeof window !== "undefined" &&
+        "Notification" in window &&
+        Notification.permission === "default"
+      ) {
+        Notification.requestPermission();
       }
     }
-    setReminders(newReminders)
-    setShowNotification(true)
-    setTimeout(() => setShowNotification(false), 3000)
-  }
+    setReminders(newReminders);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
 
   const addToCalendar = (match, provider = "ics") => {
-    const startDate = new Date()
-    const [hours, minutes] = match.time.split(":").map(Number)
+    const startDate = new Date();
+    const [hours, minutes] = match.time.split(":").map(Number);
 
     // Set match date (assuming today/tomorrow based on match.date)
     if (match.date === "Tomorrow") {
-      startDate.setDate(startDate.getDate() + 1)
+      startDate.setDate(startDate.getDate() + 1);
     }
-    startDate.setHours(hours, minutes, 0, 0)
+    startDate.setHours(hours, minutes, 0, 0);
 
-    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000) // 2 hours duration
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours duration
 
     const eventDetails = {
       title: `${match.homeTeam} vs ${match.awayTeam}`,
@@ -190,46 +284,50 @@ export default function Component() {
       startDate: startDate,
       endDate: endDate,
       url: window.location.href,
-    }
+    };
 
     if (provider === "google") {
-      addToGoogleCalendar(eventDetails)
+      addToGoogleCalendar(eventDetails);
     } else if (provider === "outlook") {
-      addToOutlookCalendar(eventDetails)
+      addToOutlookCalendar(eventDetails);
     } else {
-      downloadICSFile(eventDetails)
+      downloadICSFile(eventDetails);
     }
-  }
+  };
 
   const formatDateForCalendar = (date) => {
-    return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"
-  }
+    return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  };
 
   const addToGoogleCalendar = (event) => {
-    const googleUrl = new URL("https://calendar.google.com/calendar/render")
-    googleUrl.searchParams.set("action", "TEMPLATE")
-    googleUrl.searchParams.set("text", event.title)
+    const googleUrl = new URL("https://calendar.google.com/calendar/render");
+    googleUrl.searchParams.set("action", "TEMPLATE");
+    googleUrl.searchParams.set("text", event.title);
     googleUrl.searchParams.set(
       "dates",
-      `${formatDateForCalendar(event.startDate)}/${formatDateForCalendar(event.endDate)}`,
-    )
-    googleUrl.searchParams.set("details", event.description)
-    googleUrl.searchParams.set("location", event.location)
-    googleUrl.searchParams.set("sprop", "website:" + event.url)
+      `${formatDateForCalendar(event.startDate)}/${formatDateForCalendar(
+        event.endDate
+      )}`
+    );
+    googleUrl.searchParams.set("details", event.description);
+    googleUrl.searchParams.set("location", event.location);
+    googleUrl.searchParams.set("sprop", "website:" + event.url);
 
-    window.open(googleUrl.toString(), "_blank")
-  }
+    window.open(googleUrl.toString(), "_blank");
+  };
 
   const addToOutlookCalendar = (event) => {
-    const outlookUrl = new URL("https://outlook.live.com/calendar/0/deeplink/compose")
-    outlookUrl.searchParams.set("subject", event.title)
-    outlookUrl.searchParams.set("startdt", event.startDate.toISOString())
-    outlookUrl.searchParams.set("enddt", event.endDate.toISOString())
-    outlookUrl.searchParams.set("body", event.description)
-    outlookUrl.searchParams.set("location", event.location)
+    const outlookUrl = new URL(
+      "https://outlook.live.com/calendar/0/deeplink/compose"
+    );
+    outlookUrl.searchParams.set("subject", event.title);
+    outlookUrl.searchParams.set("startdt", event.startDate.toISOString());
+    outlookUrl.searchParams.set("enddt", event.endDate.toISOString());
+    outlookUrl.searchParams.set("body", event.description);
+    outlookUrl.searchParams.set("location", event.location);
 
-    window.open(outlookUrl.toString(), "_blank")
-  }
+    window.open(outlookUrl.toString(), "_blank");
+  };
 
   const downloadICSFile = (event) => {
     const icsContent = `BEGIN:VCALENDAR
@@ -245,35 +343,39 @@ DESCRIPTION:${event.description}
 LOCATION:${event.location}
 URL:${event.url}
 END:VEVENT
-END:VCALENDAR`
+END:VCALENDAR`;
 
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" })
-    const link = document.createElement("a")
-    link.href = URL.createObjectURL(blob)
-    link.download = `${event.title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.ics`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8",
+    });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${event.title
+      .replace(/[^a-z0-9]/gi, "_")
+      .toLowerCase()}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-    setNotificationMessage(`Calendar event downloaded for ${event.title}`)
-    setShowNotification(true)
-    setTimeout(() => setShowNotification(false), 3000)
-  }
+    setNotificationMessage(`Calendar event downloaded for ${event.title}`);
+    setShowNotification(true);
+    setTimeout(() => setShowNotification(false), 3000);
+  };
 
   const getActiveReminders = () => {
-    return upcomingMatches.filter((match) => reminders.has(match.id))
-  }
+    return upcomingMatches.filter((match) => reminders.has(match.id));
+  };
 
   // Check for match start times and send notifications
   useEffect(() => {
     const checkReminders = () => {
-      const now = new Date()
-      const currentTime = now.getHours() * 60 + now.getMinutes()
+      const now = new Date();
+      const currentTime = now.getHours() * 60 + now.getMinutes();
 
       getActiveReminders().forEach((match) => {
-        const [hours, minutes] = match.time.split(":").map(Number)
-        const matchTime = hours * 60 + minutes
-        const timeDiff = matchTime - currentTime
+        const [hours, minutes] = match.time.split(":").map(Number);
+        const matchTime = hours * 60 + minutes;
+        const timeDiff = matchTime - currentTime;
 
         // Notify 15 minutes before match starts
         if (
@@ -285,54 +387,56 @@ END:VCALENDAR`
           new Notification(`Match Starting Soon!`, {
             body: `${match.homeTeam} vs ${match.awayTeam} starts in 15 minutes`,
             icon: "/placeholder.svg?height=64&width=64",
-          })
+          });
         }
-      })
-    }
+      });
+    };
 
-    const interval = setInterval(checkReminders, 60000) // Check every minute
-    return () => clearInterval(interval)
-  }, [reminders])
+    const interval = setInterval(checkReminders, 60000); // Check every minute
+    return () => clearInterval(interval);
+  }, [reminders]);
 
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Cmd+K (Mac) or Ctrl+K (Windows/Linux) to focus search
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault()
+        e.preventDefault();
 
         // Focus desktop search if visible, otherwise open mobile search
         if (window.innerWidth >= 768) {
-          desktopSearchRef.current?.focus()
+          desktopSearchRef.current?.focus();
         } else {
-          setSearchOpen(true)
+          setSearchOpen(true);
           // Small delay to ensure the input is rendered before focusing
           setTimeout(() => {
-            mobileSearchRef.current?.focus()
-          }, 100)
+            mobileSearchRef.current?.focus();
+          }, 100);
         }
       }
 
       // Escape to close mobile search or blur desktop search
       if (e.key === "Escape") {
         if (searchOpen) {
-          setSearchOpen(false)
+          setSearchOpen(false);
         } else if (document.activeElement === desktopSearchRef.current) {
-          desktopSearchRef.current?.blur()
+          desktopSearchRef.current?.blur();
         }
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [searchOpen])
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [searchOpen]);
 
   // Detect if user is on Mac for shortcut display
-  const isMac = typeof window !== "undefined" && navigator.platform.toUpperCase().indexOf("MAC") >= 0
-  const shortcutKey = isMac ? "⌘K" : "Ctrl+K"
+  const isMac =
+    typeof window !== "undefined" &&
+    navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+  const shortcutKey = isMac ? "⌘K" : "Ctrl+K";
 
   if (currentView === "watch" && selectedMatch) {
-    return <WatchPage match={selectedMatch} onBack={goBack} />
+    return <WatchPage match={selectedMatch} onBack={goBack} />;
   }
 
   return (
@@ -344,7 +448,9 @@ END:VCALENDAR`
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <h1 className="text-xl md:text-2xl font-bold text-red-600">FootyFlix</h1>
+              <h1 className="text-xl md:text-2xl font-bold text-red-600">
+                FootyFlix
+              </h1>
             </div>
 
             {/* Desktop Navigation */}
@@ -365,7 +471,11 @@ END:VCALENDAR`
                 )}
               </div>
 
-              <Button variant="ghost" size="icon" className="relative h-10 w-10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative h-10 w-10"
+              >
                 <Bell className="h-5 w-5" />
                 {getActiveReminders().length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -377,11 +487,20 @@ END:VCALENDAR`
 
             {/* Mobile Navigation - Show notification and user icons on tablet+ */}
             <div className="md:hidden flex items-center space-x-2">
-              <Button variant="ghost" size="icon" onClick={() => setSearchOpen(!searchOpen)} className="h-10 w-10">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="h-10 w-10"
+              >
                 <Search className="h-5 w-5" />
               </Button>
 
-              <Button variant="ghost" size="icon" className="relative h-10 w-10 hidden sm:flex">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative h-10 w-10 hidden sm:flex"
+              >
                 <Bell className="h-5 w-5" />
                 {getActiveReminders().length > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -432,15 +551,23 @@ END:VCALENDAR`
               <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse" />
               LIVE NOW
             </Badge>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-2 md:mb-4">Manchester City vs Liverpool</h2>
-            <p className="text-sm sm:text-lg lg:text-xl text-gray-300 mb-2">Premier League • Etihad Stadium</p>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-2 md:mb-4">
+              Manchester City vs Liverpool
+            </h2>
+            <p className="text-sm sm:text-lg lg:text-xl text-gray-300 mb-2">
+              Premier League • Etihad Stadium
+            </p>
             <div className="flex items-center space-x-2 md:space-x-4 mb-4 md:mb-6">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold">2 - 1</div>
-              <div className="text-sm sm:text-base lg:text-lg text-gray-400">78' • 2.3M viewers</div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold">
+                2 - 1
+              </div>
+              <div className="text-sm sm:text-base lg:text-lg text-gray-400">
+                78' • 2.3M viewers
+              </div>
             </div>
             <p className="text-gray-300 mb-4 md:mb-6 text-sm sm:text-base lg:text-lg hidden sm:block">
-              An intense Premier League clash as Manchester City takes on Liverpool in what promises to be the match of
-              the season.
+              An intense Premier League clash as Manchester City takes on
+              Liverpool in what promises to be the match of the season.
             </p>
 
             {/* Social Sharing */}
@@ -455,7 +582,7 @@ END:VCALENDAR`
                     title: "Manchester City vs Liverpool - Live",
                     text: "Watch this amazing match live on FootyFlix!",
                     url: window.location.href,
-                  }) || navigator.clipboard.writeText(window.location.href)
+                  }) || navigator.clipboard.writeText(window.location.href);
                 }}
               >
                 <Share2 className="h-4 w-4 mr-1" />
@@ -466,14 +593,20 @@ END:VCALENDAR`
                 size="sm"
                 className="text-blue-500 hover:bg-blue-500/20"
                 onClick={() => {
-                  const text = `Watching Manchester City vs Liverpool LIVE! 2-1 in the 78th minute. What a match! 🔥⚽ #MCILIV #PremierLeague`
+                  const text = `Watching Manchester City vs Liverpool LIVE! 2-1 in the 78th minute. What a match! 🔥⚽ #MCILIV #PremierLeague`;
                   window.open(
-                    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`,
-                    "_blank",
-                  )
+                    `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      text
+                    )}&url=${encodeURIComponent(window.location.href)}`,
+                    "_blank"
+                  );
                 }}
               >
-                <svg className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
                 Tweet
@@ -483,14 +616,20 @@ END:VCALENDAR`
                 size="sm"
                 className="text-blue-600 hover:bg-blue-600/20"
                 onClick={() => {
-                  const text = `Watching Manchester City vs Liverpool LIVE! Amazing match 🔥⚽`
+                  const text = `Watching Manchester City vs Liverpool LIVE! Amazing match 🔥⚽`;
                   window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`,
-                    "_blank",
-                  )
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      window.location.href
+                    )}&quote=${encodeURIComponent(text)}`,
+                    "_blank"
+                  );
                 }}
               >
-                <svg className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="h-4 w-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Facebook
@@ -532,7 +671,10 @@ END:VCALENDAR`
               <Card key={match.id} className="bg-gray-800 border-gray-700">
                 <CardContent className="p-3">
                   <div className="flex justify-between items-start mb-2">
-                    <Badge variant="outline" className="border-yellow-500 text-yellow-400 text-xs">
+                    <Badge
+                      variant="outline"
+                      className="border-yellow-500 text-yellow-400 text-xs"
+                    >
                       {match.league}
                     </Badge>
                     <div className="flex space-x-1">
@@ -551,7 +693,9 @@ END:VCALENDAR`
                     <div className="font-semibold mb-1 text-sm">
                       {match.homeTeam} vs {match.awayTeam}
                     </div>
-                    <div className="text-lg font-bold text-yellow-400">{match.time}</div>
+                    <div className="text-lg font-bold text-yellow-400">
+                      {match.time}
+                    </div>
                     <div className="text-xs text-gray-400">
                       {match.date} • {match.stadium}
                     </div>
@@ -609,7 +753,9 @@ END:VCALENDAR`
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Card className="bg-gray-800 border-gray-700">
                     <CardHeader>
-                      <CardTitle className="text-lg">Match Statistics</CardTitle>
+                      <CardTitle className="text-lg">
+                        Match Statistics
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -618,13 +764,21 @@ END:VCALENDAR`
                           <span>58% - 42%</span>
                         </div>
                         <div className="flex h-3 bg-gray-700 rounded-full overflow-hidden">
-                          <div className="bg-blue-500 h-full" style={{ width: "58%" }} />
-                          <div className="bg-red-500 h-full" style={{ width: "42%" }} />
+                          <div
+                            className="bg-blue-500 h-full"
+                            style={{ width: "58%" }}
+                          />
+                          <div
+                            className="bg-red-500 h-full"
+                            style={{ width: "42%" }}
+                          />
                         </div>
                       </div>
                       <div className="grid grid-cols-3 gap-4 text-center">
                         <div>
-                          <div className="text-2xl font-bold text-blue-400">12</div>
+                          <div className="text-2xl font-bold text-blue-400">
+                            12
+                          </div>
                           <div className="text-sm text-gray-400">Shots</div>
                         </div>
                         <div>
@@ -632,7 +786,9 @@ END:VCALENDAR`
                           <div className="text-sm text-gray-400">Score</div>
                         </div>
                         <div>
-                          <div className="text-2xl font-bold text-red-400">8</div>
+                          <div className="text-2xl font-bold text-red-400">
+                            8
+                          </div>
                           <div className="text-sm text-gray-400">Shots</div>
                         </div>
                       </div>
@@ -656,24 +812,40 @@ END:VCALENDAR`
                     <CardContent>
                       <div className="space-y-3">
                         <div className="flex items-center space-x-3 p-2 bg-gray-700 rounded text-sm">
-                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">78'</span>
+                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">
+                            78'
+                          </span>
                           <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                          <span className="flex-1">Yellow card - J. Henderson (Liverpool)</span>
+                          <span className="flex-1">
+                            Yellow card - J. Henderson (Liverpool)
+                          </span>
                         </div>
                         <div className="flex items-center space-x-3 p-2 bg-gray-700 rounded text-sm">
-                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">67'</span>
+                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">
+                            67'
+                          </span>
                           <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span className="flex-1">⚽ Goal - K. De Bruyne (Manchester City)</span>
+                          <span className="flex-1">
+                            ⚽ Goal - K. De Bruyne (Manchester City)
+                          </span>
                         </div>
                         <div className="flex items-center space-x-3 p-2 bg-gray-700 rounded text-sm">
-                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">34'</span>
+                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">
+                            34'
+                          </span>
                           <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span className="flex-1">⚽ Goal - M. Salah (Liverpool)</span>
+                          <span className="flex-1">
+                            ⚽ Goal - M. Salah (Liverpool)
+                          </span>
                         </div>
                         <div className="flex items-center space-x-3 p-2 bg-gray-700 rounded text-sm">
-                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">12'</span>
+                          <span className="font-mono text-xs bg-gray-600 px-2 py-1 rounded">
+                            12'
+                          </span>
                           <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span className="flex-1">⚽ Goal - E. Haaland (Manchester City)</span>
+                          <span className="flex-1">
+                            ⚽ Goal - E. Haaland (Manchester City)
+                          </span>
                         </div>
                       </div>
                     </CardContent>
@@ -689,40 +861,62 @@ END:VCALENDAR`
                   <CardContent>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-4 p-3 bg-gray-700 rounded-lg">
-                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">78'</span>
+                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">
+                          78'
+                        </span>
                         <div>
                           <div className="w-3 h-3 rounded-full bg-yellow-500" />
                         </div>
                         <div className="flex-1">
-                          <div className="font-semibold">Yellow card - J. Henderson</div>
+                          <div className="font-semibold">
+                            Yellow card - J. Henderson
+                          </div>
                           <div className="text-sm text-gray-400">Liverpool</div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-4 p-3 bg-gray-700 rounded-lg">
-                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">67'</span>
+                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">
+                          67'
+                        </span>
                       </div>
                       <div className="flex items-center space-x-4 p-3 bg-gray-700 rounded-lg">
-                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">67'</span>
+                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">
+                          67'
+                        </span>
                         <div className="w-3 h-3 rounded-full bg-green-500" />
                         <div className="flex-1">
-                          <div className="font-semibold">⚽ Goal - K. De Bruyne</div>
-                          <div className="text-sm text-gray-400">Manchester City</div>
+                          <div className="font-semibold">
+                            ⚽ Goal - K. De Bruyne
+                          </div>
+                          <div className="text-sm text-gray-400">
+                            Manchester City
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-4 p-3 bg-gray-700 rounded-lg">
-                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">34'</span>
+                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">
+                          34'
+                        </span>
                         <div className="w-3 h-3 rounded-full bg-green-500" />
                         <div className="flex-1">
-                          <div className="font-semibold">⚽ Goal - M. Salah</div>
+                          <div className="font-semibold">
+                            ⚽ Goal - M. Salah
+                          </div>
                           <div className="text-sm text-gray-400">Liverpool</div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-4 p-3 bg-gray-700 rounded-lg">
-                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">12'</span>
+                        <span className="font-mono text-sm bg-gray-600 px-2 py-1 rounded">
+                          12'
+                        </span>
                         <div className="w-3 h-3 rounded-full bg-green-500" />
                         <div className="flex-1">
-                          <div className="font-semibold">⚽ Goal - E. Haaland</div>
-                          <div className="text-sm text-gray-400">Manchester City</div>
+                          <div className="font-semibold">
+                            ⚽ Goal - E. Haaland
+                          </div>
+                          <div className="text-sm text-gray-400">
+                            Manchester City
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -734,7 +928,9 @@ END:VCALENDAR`
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Card className="bg-gray-800 border-gray-700">
                     <CardHeader>
-                      <CardTitle className="text-blue-400">Manchester City</CardTitle>
+                      <CardTitle className="text-blue-400">
+                        Manchester City
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
@@ -751,7 +947,10 @@ END:VCALENDAR`
                           "Haaland",
                           "Grealish",
                         ].map((player, index) => (
-                          <div key={index} className="flex items-center space-x-3 p-2 bg-gray-700 rounded">
+                          <div
+                            key={index}
+                            className="flex items-center space-x-3 p-2 bg-gray-700 rounded"
+                          >
                             <span className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold text-white">
                               {index + 1}
                             </span>
@@ -781,7 +980,10 @@ END:VCALENDAR`
                           "Nunez",
                           "Diaz",
                         ].map((player, index) => (
-                          <div key={index} className="flex items-center space-x-3 p-2 bg-gray-700 rounded">
+                          <div
+                            key={index}
+                            className="flex items-center space-x-3 p-2 bg-gray-700 rounded"
+                          >
                             <span className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center text-xs font-bold text-white">
                               {index + 1}
                             </span>
@@ -820,10 +1022,10 @@ END:VCALENDAR`
                         match.id === 1
                           ? `/images/match-1.jpg`
                           : match.id === 2
-                            ? `/images/match-2.jpg`
-                            : match.id === 3
-                              ? `/images/match-3.jpg`
-                              : `/images/match-4.jpg`
+                          ? `/images/match-2.jpg`
+                          : match.id === 3
+                          ? `/images/match-3.jpg`
+                          : `/images/match-4.jpg`
                       }
                       alt={`${match.homeTeam} vs ${match.awayTeam}`}
                       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
@@ -840,8 +1042,12 @@ END:VCALENDAR`
                   </div>
                   <div className="p-3 md:p-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs md:text-sm text-gray-400 truncate">{match.league}</span>
-                      <span className="text-xs md:text-sm text-gray-400">{match.viewers}</span>
+                      <span className="text-xs md:text-sm text-gray-400 truncate">
+                        {match.league}
+                      </span>
+                      <span className="text-xs md:text-sm text-gray-400">
+                        {match.viewers}
+                      </span>
                     </div>
                     <div className="text-center">
                       <div className="font-semibold mb-1 text-sm md:text-base truncate">
@@ -850,7 +1056,9 @@ END:VCALENDAR`
                       <div className="text-xl md:text-2xl font-bold text-white">
                         {match.homeScore} - {match.awayScore}
                       </div>
-                      <div className="text-xs md:text-sm text-gray-400 mt-1">{match.time}</div>
+                      <div className="text-xs md:text-sm text-gray-400 mt-1">
+                        {match.time}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -861,7 +1069,9 @@ END:VCALENDAR`
 
         {/* Upcoming Matches */}
         <section className="mb-8 md:mb-12">
-          <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Coming Up Today</h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">
+            Coming Up Today
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {upcomingMatches.map((match) => (
               <Card
@@ -878,17 +1088,26 @@ END:VCALENDAR`
                     <div className="absolute inset-0 bg-black/20 rounded-lg" />
                   </div>
                   <div className="flex justify-between items-start mb-3">
-                    <Badge variant="outline" className="border-gray-600 text-gray-300 text-xs">
+                    <Badge
+                      variant="outline"
+                      className="border-gray-600 text-gray-300 text-xs"
+                    >
                       {match.league}
                     </Badge>
-                    <span className="text-xs md:text-sm text-gray-400">{match.date}</span>
+                    <span className="text-xs md:text-sm text-gray-400">
+                      {match.date}
+                    </span>
                   </div>
                   <div className="text-center">
                     <div className="font-semibold mb-2 text-sm md:text-base">
                       {match.homeTeam} vs {match.awayTeam}
                     </div>
-                    <div className="text-lg md:text-xl font-bold text-green-400">{match.time}</div>
-                    <div className="text-xs text-gray-400 mt-1">{match.stadium}</div>
+                    <div className="text-lg md:text-xl font-bold text-green-400">
+                      {match.time}
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">
+                      {match.stadium}
+                    </div>
                   </div>
 
                   {/* Action Buttons */}
@@ -902,7 +1121,9 @@ END:VCALENDAR`
                       variant={reminders.has(match.id) ? "default" : "outline"}
                       onClick={() => setReminder(match.id, match)}
                     >
-                      {reminders.has(match.id) ? "✓ Reminder Set" : "Set Reminder"}
+                      {reminders.has(match.id)
+                        ? "✓ Reminder Set"
+                        : "Set Reminder"}
                     </Button>
                   </div>
                 </CardContent>
@@ -918,21 +1139,46 @@ END:VCALENDAR`
             <div className="md:col-span-2">
               <h3 className="text-xl font-bold text-red-600 mb-4">FootyFlix</h3>
               <p className="text-gray-400 mb-4">
-                Your ultimate destination for live football streaming. Watch matches from top leagues around the world.
+                Your ultimate destination for live football streaming. Watch
+                matches from top leagues around the world.
               </p>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-400 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </Button>
-                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-400 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                   </svg>
                 </Button>
-                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-400 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z" />
                   </svg>
                 </Button>
@@ -995,13 +1241,18 @@ END:VCALENDAR`
                 </li>
                 <li>
                   <a
-                    href="https://your-portfolio-link.com"
+                    href="https://my-portfolio-phi-flax.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors flex items-center"
                   >
                     Developer Portfolio
-                    <svg className="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1016,21 +1267,23 @@ END:VCALENDAR`
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 FootyFlix. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">
+              © 2024 FootyFlix. All rights reserved.
+            </p>
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
-              Built with ❤️ by{" "}
+              Built by{" "}
               <a
-                href="https://your-portfolio-link.com"
+                href="https://my-portfolio-phi-flax.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-red-500 hover:text-red-400 transition-colors"
               >
-                Your Name
+                Omoare Daniel a.k.a D4nRick
               </a>
             </p>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
