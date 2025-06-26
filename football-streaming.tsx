@@ -543,7 +543,7 @@ END:VCALENDAR`;
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('hero-bg.jpg')`, // Replace with your hero background image
+            backgroundImage: `url('/images/hero-bg.jpg')`,
             backgroundBlendMode: "overlay",
           }}
         />
@@ -1023,11 +1023,11 @@ END:VCALENDAR`;
                     <img
                       src={
                         match.id === 1
-                          ? "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?auto=format&fit=crop&w=600&q=80"
+                          ? "/images/hero-bg.jpg"
                           : match.id === 2
-                          ? "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
+                          ? "https://media.gettyimages.com/id/2214535988/photo/barcelona-spain-kylian-mbappe-of-real-madrid-passes-the-ball-under-pressure-from-lamine-yamal.jpg?s=612x612&w=0&k=20&c=r35_tJ7H_ZVcEWWRHE21NRfGd0w70aTwdQQf7x2PapA="
                           : match.id === 3
-                          ? "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                          ? "https://media.gettyimages.com/id/2209931829/photo/munich-germany-harry-kane-of-bayern-munich-has-his-shot-blocked-by-waldemar-anton-of-borussia.jpg?s=612x612&w=0&k=20&c=0n-VKvTWs1D5OGsgDBVcrXN-LieOKV5lQ_KmQgUxcuc="
                           : "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80"
                       }
                       alt={`${match.homeTeam} vs ${match.awayTeam}`}
@@ -1189,6 +1189,7 @@ END:VCALENDAR`;
                   >
                     <path d="M20.52 3.48A11.77 11.77 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.21-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.69.96.99-3.59-.25-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.27-7.29c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3 .15.19 2.03 3.1 4.93 4.23.69.28 1.23.45 1.65.58.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
                   </svg>
+                  WhatsApp
                 </Button>
 
                 {/* Facebook */}
