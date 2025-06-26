@@ -634,6 +634,27 @@ END:VCALENDAR`;
                 </svg>
                 Facebook
               </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-green-500 hover:bg-green-500/20"
+                onClick={() => {
+                  const text = `Watching Manchester City vs Liverpool LIVE! Amazing match 🔥⚽ ${window.location.href}`;
+                  window.open(
+                    `https://wa.me/?text=${encodeURIComponent(text)}`,
+                    "_blank"
+                  );
+                }}
+              >
+                <svg
+                  className="h-4 w-4 mr-1"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20.52 3.48A11.77 11.77 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.21-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.69.96.99-3.59-.25-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.27-7.29c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3 .15.19 2.03 3.1 4.93 4.23.69.28 1.23.45 1.65.58.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
+                </svg>
+                WhatsApp
+              </Button>
             </div>
 
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
@@ -1152,7 +1173,7 @@ END:VCALENDAR`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="text-[#1da1f2] hover:bg-[#1da1f2]/20" // X blue
                   >
                     <svg
                       className="h-5 w-5"
@@ -1160,6 +1181,29 @@ END:VCALENDAR`;
                       viewBox="0 0 24 24"
                     >
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </Button>
+                </a>
+                {/* WhatsApp */}
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    "Watch live football matches on FootyFlix! " +
+                      window.location.href
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-green-500 hover:bg-green-500/20"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.52 3.48A11.77 11.77 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.21-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.69.96.99-3.59-.25-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.27-7.29c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3 .15.19 2.03 3.1 4.93 4.23.69.28 1.23.45 1.65.58.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
                     </svg>
                   </Button>
                 </a>
@@ -1172,7 +1216,7 @@ END:VCALENDAR`;
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="text-[#1877f3] hover:bg-[#1877f3]/20" // Facebook blue
                   >
                     <svg
                       className="h-5 w-5"
@@ -1186,14 +1230,14 @@ END:VCALENDAR`;
 
                 {/* Telegram */}
                 <a
-                  href="hhttps://t.me/footyfrenzy"
+                  href="https://t.me/footyfrenzy"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-400 hover:text-white"
+                    className="text-[#229ED9] hover:bg-[#229ED9]/20" // Telegram blue
                   >
                     <svg
                       className="h-5 w-5"
