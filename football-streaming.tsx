@@ -543,7 +543,7 @@ END:VCALENDAR`;
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://media.gettyimages.com/id/2211008909/photo/liverpool-england-mateo-kovacic-of-manchester-city-celebrates-scoring-his-teams-second-goal.jpg?s=612x612&w=0&k=20&c=pQ2_CdosWKCpfmPjeZN_zslvofzlquuTdwGgOuW-3ZU=')`,
+            backgroundImage: `url('hero-bg.jpg')`, // Replace with your hero background image
             backgroundBlendMode: "overlay",
           }}
         />
