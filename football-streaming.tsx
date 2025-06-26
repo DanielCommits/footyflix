@@ -204,7 +204,8 @@ export default function Component() {
       date: "Today",
       league: "Premier League",
       stadium: "Emirates Stadium",
-      image: "/images/stadium-1.jpg",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80", // Example online image
     },
     {
       id: 6,
@@ -214,7 +215,8 @@ export default function Component() {
       date: "Today",
       league: "Ligue 1",
       stadium: "Parc des Princes",
-      image: "/images/stadium-2.jpg",
+      image:
+        "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
     },
     {
       id: 7,
@@ -224,7 +226,8 @@ export default function Component() {
       date: "Tomorrow",
       league: "La Liga",
       stadium: "Wanda Metropolitano",
-      image: "/images/stadium-3.jpg",
+      image:
+        "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80",
     },
   ];
 
@@ -540,7 +543,7 @@ END:VCALENDAR`;
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('/images/hero-bg.jpg')`,
+            backgroundImage: `url('https://media.gettyimages.com/id/2211008909/photo/liverpool-england-mateo-kovacic-of-manchester-city-celebrates-scoring-his-teams-second-goal.jpg?s=612x612&w=0&k=20&c=pQ2_CdosWKCpfmPjeZN_zslvofzlquuTdwGgOuW-3ZU=')`,
             backgroundBlendMode: "overlay",
           }}
         />
@@ -1041,12 +1044,12 @@ END:VCALENDAR`;
                     <img
                       src={
                         match.id === 1
-                          ? `/images/match-1.jpg`
+                          ? "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?auto=format&fit=crop&w=600&q=80"
                           : match.id === 2
-                          ? `/images/match-2.jpg`
+                          ? "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
                           : match.id === 3
-                          ? `/images/match-3.jpg`
-                          : `/images/match-4.jpg`
+                          ? "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                          : "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80"
                       }
                       alt={`${match.homeTeam} vs ${match.awayTeam}`}
                       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
