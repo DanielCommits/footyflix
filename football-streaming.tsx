@@ -205,7 +205,7 @@ export default function Component() {
       league: "Premier League",
       stadium: "Emirates Stadium",
       image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80", // Example online image
+        "https://media.gettyimages.com/id/2150175419/photo/london-england-gabriel-magalhaes-of-arsenal-tangles-with-nicolas-jackson-of-chelsea-during.jpg?s=612x612&w=0&k=20&c=9LeA_MSrA6Ces6izk0jwK7aqzXU3CY2L0CkIqEEKnAk=", // Example online image
     },
     {
       id: 6,
@@ -216,7 +216,7 @@ export default function Component() {
       league: "Ligue 1",
       stadium: "Parc des Princes",
       image:
-        "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+        "https://media.gettyimages.com/id/2204948816/photo/paris-saint-germains-georgian-forward-khvicha-kvaratskhelia-fights-for-the-ball-with.jpg?s=612x612&w=0&k=20&c=l1IcreLwqyXL3RbDFJv2VTicKGIGTfpUH71DIaSfw_M=",
     },
     {
       id: 7,
@@ -227,7 +227,7 @@ export default function Component() {
       league: "La Liga",
       stadium: "Wanda Metropolitano",
       image:
-        "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80",
+        "https://media.gettyimages.com/id/2206064606/photo/memphis-depay-centre-forward-of-netherlands-and-sport-club-corinthians-paulista-and-robin-le.jpg?s=612x612&w=0&k=20&c=ejvkqR4Qz0ymR7v2hK5lVXAZabF6pnGjvxgrV4WG2ew=",
     },
   ];
 
@@ -652,7 +652,7 @@ END:VCALENDAR`;
                 }}
               >
                 <svg
-                  className="h-4 w-4 mr-1"
+                  className="h-5 w-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
