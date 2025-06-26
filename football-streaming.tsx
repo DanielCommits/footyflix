@@ -642,7 +642,9 @@ END:VCALENDAR`;
                 size="sm"
                 className="text-green-500 hover:bg-green-500/20"
                 onClick={() => {
-                  const text = `Watching Manchester City vs Liverpool LIVE! Amazing match 🔥⚽ ${window.location.href}`;
+                  const text =
+                    "Watch live football matches on FootyFlix! " +
+                    window.location.href;
                   window.open(
                     `https://wa.me/?text=${encodeURIComponent(text)}`,
                     "_blank"
