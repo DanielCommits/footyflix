@@ -4,7 +4,7 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: "Footyflix",
-  description: "Watch football matches live and on demand",
+  description: "Watch football matches live and on demand.",
 }
 
 export default function RootLayout({

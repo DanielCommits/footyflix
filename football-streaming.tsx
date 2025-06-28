@@ -1011,62 +1011,134 @@ END:VCALENDAR`;
             <div className="w-3 h-3 bg-red-600 rounded-full mr-3 animate-pulse" />
             Live Now
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-            {liveMatches.map((match) => (
-              <Card
-                key={match.id}
-                className="bg-gray-900 border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer group"
-                onClick={() => watchMatch(match)}
+          <div className="relative">
+            {/* Scroll Left Button (only on small screens) */}
+            <button
+              type="button"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 shadow hidden sm:hidden"
+              style={{ display: "block" }}
+              onClick={() => {
+                document.getElementById("live-now-scroll")?.scrollBy({
+                  left: -300,
+                  behavior: "smooth",
+                });
+              }}
+              aria-label="Scroll left"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
               >
-                <CardContent className="p-0">
-                  <div className="relative">
-                    <img
-                      src={
-                        match.id === 1
-                          ? "/images/hero-bg.jpg"
-                          : match.id === 2
-                          ? "https://media.gettyimages.com/id/2214535988/photo/barcelona-spain-kylian-mbappe-of-real-madrid-passes-the-ball-under-pressure-from-lamine-yamal.jpg?s=612x612&w=0&k=20&c=r35_tJ7H_ZVcEWWRHE21NRfGd0w70aTwdQQf7x2PapA="
-                          : match.id === 3
-                          ? "https://media.gettyimages.com/id/2209931829/photo/munich-germany-harry-kane-of-bayern-munich-has-his-shot-blocked-by-waldemar-anton-of-borussia.jpg?s=612x612&w=0&k=20&c=0n-VKvTWs1D5OGsgDBVcrXN-LieOKV5lQ_KmQgUxcuc="
-                          : "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80"
-                      }
-                      alt={`${match.homeTeam} vs ${match.awayTeam}`}
-                      className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
-                    />
-                    {match.isLive && (
-                      <Badge className="absolute top-2 left-2 bg-red-600 hover:bg-red-700 text-xs">
-                        <div className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />
-                        LIVE
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors rounded-t-lg flex items-center justify-center">
-                      <Play className="h-8 w-8 md:h-12 md:w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </div>
-                  <div className="p-3 md:p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs md:text-sm text-gray-400 truncate">
-                        {match.league}
-                      </span>
-                      <span className="text-xs md:text-sm text-gray-400">
-                        {match.viewers}
-                      </span>
-                    </div>
-                    <div className="text-center">
-                      <div className="font-semibold mb-1 text-sm md:text-white truncate">
-                        {match.homeTeam} vs {match.awayTeam}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            {/* Scrollable Row */}
+            <div
+              id="live-now-scroll"
+              className="
+        flex overflow-x-auto space-x-3 md:space-x-4
+        pb-2
+        sm:grid sm:grid-cols-2 sm:space-x-0 sm:gap-3
+        lg:grid lg:grid-cols-4 lg:gap-4
+        scrollbar-hide
+      "
+              style={{ scrollBehavior: "smooth" }}
+            >
+              {liveMatches.map((match) => (
+                <Card
+                  key={match.id}
+                  className="
+          min-w-[85vw] max-w-xs
+          sm:min-w-0 sm:max-w-none
+          bg-gray-900 border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer group
+          flex-shrink-0
+        "
+                  onClick={() => watchMatch(match)}
+                >
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <img
+                        src={
+                          match.id === 1
+                            ? "/images/hero-bg.jpg"
+                            : match.id === 2
+                            ? "https://media.gettyimages.com/id/2214535988/photo/barcelona-spain-kylian-mbappe-of-real-madrid-passes-the-ball-under-pressure-from-lamine-yamal.jpg?s=612x612&w=0&k=20&c=r35_tJ7H_ZVcEWWRHE21NRfGd0w70aTwdQQf7x2PapA="
+                            : match.id === 3
+                            ? "https://media.gettyimages.com/id/2209931829/photo/munich-germany-harry-kane-of-bayern-munich-has-his-shot-blocked-by-waldemar-anton-of-borussia.jpg?s=612x612&w=0&k=20&c=0n-VKvTWs1D5OGsgDBVcrXN-LieOKV5lQ_KmQgUxcuc="
+                            : "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&q=80"
+                        }
+                        alt={`${match.homeTeam} vs ${match.awayTeam}`}
+                        className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
+                      />
+                      {match.isLive && (
+                        <Badge className="absolute top-2 left-2 bg-red-600 hover:bg-red-700 text-xs">
+                          <div className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />
+                          LIVE
+                        </Badge>
+                      )}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors rounded-t-lg flex items-center justify-center">
+                        <Play className="h-8 w-8 md:h-12 md:w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <div className="text-xl md:text-2xl font-bold text-white">
-                        {match.homeScore} - {match.awayScore}
+                    </div>
+                    <div className="p-3 md:p-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs md:text-sm text-gray-400 truncate">
+                          {match.league}
+                        </span>
+                        <span className="text-xs md:text-sm text-gray-400">
+                          {match.viewers}
+                        </span>
                       </div>
-                      <div className="text-xs md:text-sm text-gray-400 mt-1">
-                        {match.time}
+                      <div className="text-center">
+                        <div className="font-semibold mb-1 text-sm md:text-white truncate">
+                          {match.homeTeam} vs {match.awayTeam}
+                        </div>
+                        <div className="text-xl md:text-2xl font-bold text-white">
+                          {match.homeScore} - {match.awayScore}
+                        </div>
+                        <div className="text-xs md:text-sm text-gray-400 mt-1">
+                          {match.time}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            {/* Scroll Right Button (only on small screens) */}
+            <button
+              type="button"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 shadow hidden sm:hidden"
+              style={{ display: "block" }}
+              onClick={() => {
+                document.getElementById("live-now-scroll")?.scrollBy({
+                  left: 300,
+                  behavior: "smooth",
+                });
+              }}
+              aria-label="Scroll right"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
           </div>
         </section>
 
@@ -1189,6 +1261,7 @@ END:VCALENDAR`;
                   >
                     <path d="M20.52 3.48A11.77 11.77 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.21-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.69.96.99-3.59-.25-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.27-7.29c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3 .15.19 2.03 3.1 4.93 4.23.69.28 1.23.45 1.65.58.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
                   </svg>
+                  WhatsApp
                 </Button>
 
                 {/* Facebook */}
@@ -1246,9 +1319,9 @@ END:VCALENDAR`;
                 href="https://my-portfolio-phi-flax.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-red-500 hover:text-red-400 transition-colors"
+                className="text-red-400 hover:text-red-300"
               >
-                Omoare Daniel
+                Your Name
               </a>
             </p>
           </div>
