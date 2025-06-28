@@ -1097,7 +1097,7 @@ END:VCALENDAR`;
                         </span>
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold mb-1 text-sm md:text-white truncate">
+                        <div className="font-semibold mb-1 text-sm text-white truncate">
                           {match.homeTeam} vs {match.awayTeam}
                         </div>
                         <div className="text-xl md:text-2xl font-bold text-white">
@@ -1147,63 +1147,137 @@ END:VCALENDAR`;
           <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">
             Coming Up Today
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-            {upcomingMatches.map((match) => (
-              <Card
-                key={match.id}
-                className="bg-gray-900 border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer"
+          <div className="relative">
+            {/* Scroll Left Button (only on small screens) */}
+            <button
+              type="button"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 shadow hidden sm:hidden"
+              style={{ display: "block" }}
+              onClick={() => {
+                document.getElementById("upcoming-scroll")?.scrollBy({
+                  left: -300,
+                  behavior: "smooth",
+                });
+              }}
+              aria-label="Scroll left"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
               >
-                <CardContent className="p-3 md:p-4">
-                  <div className="relative mb-3">
-                    <img
-                      src={match.image || "/placeholder.svg"}
-                      alt={match.stadium}
-                      className="w-full h-24 sm:h-32 object-cover rounded-lg"
-                    />
-                    <div className="absolute inset-0 bg-black/20 rounded-lg" />
-                  </div>
-                  <div className="flex justify-between items-start mb-3">
-                    <Badge
-                      variant="outline"
-                      className="border-gray-600 text-gray-300 text-xs"
-                    >
-                      {match.league}
-                    </Badge>
-                    <span className="text-xs md:text-sm text-gray-400">
-                      {match.date}
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-semibold mb-2 text-sm md:text-white">
-                      {match.homeTeam} vs {match.awayTeam}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            {/* Scrollable Row */}
+            <div
+              id="upcoming-scroll"
+              className="
+        flex overflow-x-auto space-x-3 md:space-x-4
+        pb-2
+        sm:grid sm:grid-cols-2 sm:space-x-0 sm:gap-3
+        lg:grid lg:grid-cols-3 lg:gap-4
+        scrollbar-hide
+      "
+              style={{ scrollBehavior: "smooth" }}
+            >
+              {upcomingMatches.map((match) => (
+                <Card
+                  key={match.id}
+                  className="
+            min-w-[85vw] max-w-xs
+            sm:min-w-0 sm:max-w-none
+            bg-gray-900 border-gray-800 hover:bg-gray-800 transition-colors cursor-pointer
+            flex-shrink-0
+          "
+                >
+                  <CardContent className="p-3 md:p-4">
+                    <div className="relative mb-3">
+                      <img
+                        src={match.image || "/placeholder.svg"}
+                        alt={match.stadium}
+                        className="w-full h-24 sm:h-32 object-cover rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black/20 rounded-lg" />
                     </div>
-                    <div className="text-lg md:text-xl font-bold text-green-400">
-                      {match.time}
+                    <div className="flex justify-between items-start mb-3">
+                      <Badge
+                        variant="outline"
+                        className="border-gray-600 text-gray-300 text-xs"
+                      >
+                        {match.league}
+                      </Badge>
+                      <span className="text-xs md:text-sm text-gray-400">
+                        {match.date}
+                      </span>
                     </div>
-                    <div className="text-xs text-gray-400 mt-1">
-                      {match.stadium}
+                    <div className="text-center">
+                      <div className="font-semibold mb-2 text-sm text-white">
+                        {match.homeTeam} vs {match.awayTeam}
+                      </div>
+                      <div className="text-lg md:text-xl font-bold text-green-400">
+                        {match.time}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-1">
+                        {match.stadium}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Action Buttons */}
-                  <div className="space-y-2 mt-3 md:mt-4">
-                    <Button
-                      className={`w-full text-sm ${
-                        reminders.has(match.id)
-                          ? "bg-green-600 hover:bg-green-700 text-white"
-                          : "border-gray-600 text-gray-300 hover:bg-gray-800"
-                      }`}
-                      variant={reminders.has(match.id) ? "default" : "outline"}
-                      onClick={() => setReminder(match.id, match)}
-                    >
-                      {reminders.has(match.id)
-                        ? "✓ Reminder Set"
-                        : "Set Reminder"}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    {/* Action Buttons */}
+                    <div className="space-y-2 mt-3 md:mt-4">
+                      <Button
+                        className={`w-full text-sm ${
+                          reminders.has(match.id)
+                            ? "bg-green-600 hover:bg-green-700 text-white"
+                            : "border-gray-600 text-gray-300 hover:bg-gray-800"
+                        }`}
+                        variant={
+                          reminders.has(match.id) ? "default" : "outline"
+                        }
+                        onClick={() => setReminder(match.id, match)}
+                      >
+                        {reminders.has(match.id)
+                          ? "✓ Reminder Set"
+                          : "Set Reminder"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            {/* Scroll Right Button (only on small screens) */}
+            <button
+              type="button"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 shadow hidden sm:hidden"
+              style={{ display: "block" }}
+              onClick={() => {
+                document.getElementById("upcoming-scroll")?.scrollBy({
+                  left: 300,
+                  behavior: "smooth",
+                });
+              }}
+              aria-label="Scroll right"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
           </div>
         </section>
       </div>
@@ -1261,6 +1335,7 @@ END:VCALENDAR`;
                   >
                     <path d="M20.52 3.48A11.77 11.77 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.21-1.62A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.69.96.99-3.59-.25-.37A9.93 9.93 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.27-7.29c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.43-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-.99 2.43.01 1.43 1.03 2.81 1.18 3 .15.19 2.03 3.1 4.93 4.23.69.28 1.23.45 1.65.58.69.22 1.32.19 1.82.12.56-.08 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
                   </svg>
+                  WhatsApp
                 </Button>
 
                 {/* Facebook */}
