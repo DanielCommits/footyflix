@@ -1053,7 +1053,7 @@ END:VCALENDAR`;
                       </span>
                     </div>
                     <div className="text-center">
-                      <div className="font-semibold mb-1 text-sm md:text-base truncate">
+                      <div className="font-semibold mb-1 text-sm md:text-white truncate">
                         {match.homeTeam} vs {match.awayTeam}
                       </div>
                       <div className="text-xl md:text-2xl font-bold text-white">
@@ -1102,7 +1102,7 @@ END:VCALENDAR`;
                     </span>
                   </div>
                   <div className="text-center">
-                    <div className="font-semibold mb-2 text-sm md:text-base">
+                    <div className="font-semibold mb-2 text-sm md:text-white">
                       {match.homeTeam} vs {match.awayTeam}
                     </div>
                     <div className="text-lg md:text-xl font-bold text-green-400">
