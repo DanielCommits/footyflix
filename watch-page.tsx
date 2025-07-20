@@ -138,9 +138,9 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Share2 className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="hidden md:flex">
+            {/* <Button variant="ghost" size="icon" className="hidden md:flex">
               <Heart className="h-4 w-4" />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
