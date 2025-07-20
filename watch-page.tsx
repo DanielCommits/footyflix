@@ -94,22 +94,6 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
 
         {/* Header Actions - Responsive */}
         <div className="flex items-center space-x-1 md:space-x-2 flex-shrink-0">
-          {/* Mobile Chat/Stats Toggle */}
-          <div className="flex lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setShowMobileChat(!showMobileChat)}
-              className="relative"
-            >
-              {showMobileChat ? (
-                <BarChart3 className="h-4 w-4" />
-              ) : (
-                <MessageCircle className="h-4 w-4" />
-              )}
-            </Button>
-          </div>
-
           {/* Social Share - Hidden on small screens */}
           <div className="hidden sm:flex items-center space-x-1">
             <Button
@@ -298,9 +282,13 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                           <span className="font-semibold text-blue-400 text-xs">
                             {msg.user}
                           </span>
-                          <span className="text-xs text-gray-500">{msg.time}</span>
+                          <span className="text-xs text-gray-500">
+                            {msg.time}
+                          </span>
                         </div>
-                        <div className="text-gray-300 text-sm">{msg.message}</div>
+                        <div className="text-gray-300 text-sm">
+                          {msg.message}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -322,7 +310,9 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                 <div className="p-3 space-y-4">
                   <Card className="bg-gray-800 border-gray-700">
                     <CardHeader>
-                      <CardTitle className="text-sm">Match Statistics</CardTitle>
+                      <CardTitle className="text-sm">
+                        Match Statistics
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div>
@@ -347,7 +337,8 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                       <div className="flex justify-between text-sm">
                         <span>Corners</span>
                         <span>
-                          {match.corners?.home || 6} - {match.corners?.away || 3}
+                          {match.corners?.home || 6} -{" "}
+                          {match.corners?.away || 3}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
@@ -364,23 +355,25 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
-                        {(match.events || [
-                          {
-                            time: "78'",
-                            type: "goal",
-                            description: "Goal by K. De Bruyne",
-                          },
-                          {
-                            time: "72'",
-                            type: "yellow",
-                            description: "Yellow card",
-                          },
-                          {
-                            time: "67'",
-                            type: "goal",
-                            description: "Goal by E. Haaland",
-                          },
-                        ])
+                        {(
+                          match.events || [
+                            {
+                              time: "78'",
+                              type: "goal",
+                              description: "Goal by K. De Bruyne",
+                            },
+                            {
+                              time: "72'",
+                              type: "yellow",
+                              description: "Yellow card",
+                            },
+                            {
+                              time: "67'",
+                              type: "goal",
+                              description: "Goal by E. Haaland",
+                            },
+                          ]
+                        )
                           .slice(-3)
                           .reverse()
                           .map((event, index) => (
