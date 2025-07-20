@@ -1,7 +1,5 @@
-import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Footyflix",
@@ -10,18 +8,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <>
-      <Head>
+    <html lang="en">
+      <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-      </Head>
-      {children}
-    </>
+      </head>
+      <body className="bg-black text-white">{children}</body>
+    </html>
   );
 }
