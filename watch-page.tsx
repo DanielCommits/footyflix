@@ -280,6 +280,136 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
               </Button>
             </div>
           </div>
+
+          {/* Live Chat & Stats - Switchable on small screens */}
+          <div className="block lg:hidden bg-gray-900 border-t border-gray-800">
+            <Tabs defaultValue="chat" className="w-full">
+              <TabsList className="grid grid-cols-2 w-full bg-gray-800 mb-2">
+                <TabsTrigger value="chat">Live Chat</TabsTrigger>
+                <TabsTrigger value="stats">Stats</TabsTrigger>
+              </TabsList>
+              <TabsContent value="chat">
+                <div className="p-3">
+                  <h3 className="font-semibold mb-2 text-white">Live Chat</h3>
+                  <div className="flex-1 overflow-y-auto py-2 space-y-3 max-h-60">
+                    {chatMessages.map((msg, index) => (
+                      <div key={index} className="text-sm">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <span className="font-semibold text-blue-400 text-xs">
+                            {msg.user}
+                          </span>
+                          <span className="text-xs text-gray-500">{msg.time}</span>
+                        </div>
+                        <div className="text-gray-300 text-sm">{msg.message}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex space-x-2 pt-2 border-t border-gray-800">
+                    <Input
+                      placeholder="Type a message..."
+                      value={chatMessage}
+                      onChange={(e) => setChatMessage(e.target.value)}
+                      onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+                      className="bg-gray-800 border-gray-700 text-white text-sm"
+                    />
+                    <Button onClick={sendMessage} size="sm">
+                      Send
+                    </Button>
+                  </div>
+                </div>
+              </TabsContent>
+              <TabsContent value="stats">
+                <div className="p-3 space-y-4">
+                  <Card className="bg-gray-800 border-gray-700">
+                    <CardHeader>
+                      <CardTitle className="text-sm">Match Statistics</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div>
+                        <div className="flex justify-between text-sm mb-1">
+                          <span>Possession</span>
+                          <span>
+                            {match.possession?.home || 58}% -{" "}
+                            {match.possession?.away || 42}%
+                          </span>
+                        </div>
+                        <Progress
+                          value={match.possession?.home || 58}
+                          className="h-2"
+                        />
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Shots</span>
+                        <span>
+                          {match.shots?.home || 12} - {match.shots?.away || 8}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Corners</span>
+                        <span>
+                          {match.corners?.home || 6} - {match.corners?.away || 3}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Fouls</span>
+                        <span>
+                          {match.fouls?.home || 8} - {match.fouls?.away || 11}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-gray-800 border-gray-700">
+                    <CardHeader>
+                      <CardTitle className="text-sm">Recent Events</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        {(match.events || [
+                          {
+                            time: "78'",
+                            type: "goal",
+                            description: "Goal by K. De Bruyne",
+                          },
+                          {
+                            time: "72'",
+                            type: "yellow",
+                            description: "Yellow card",
+                          },
+                          {
+                            time: "67'",
+                            type: "goal",
+                            description: "Goal by E. Haaland",
+                          },
+                        ])
+                          .slice(-3)
+                          .reverse()
+                          .map((event, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center space-x-3 text-sm"
+                            >
+                              <span className="font-mono text-gray-400 w-8 text-xs">
+                                {event.time}
+                              </span>
+                              <div
+                                className={`w-2 h-2 rounded-full ${
+                                  event.type === "goal"
+                                    ? "bg-green-500"
+                                    : "bg-yellow-500"
+                                }`}
+                              />
+                              <span className="flex-1 text-xs">
+                                {event.description}
+                              </span>
+                            </div>
+                          ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
 
         {/* Desktop Sidebar */}
@@ -423,176 +553,6 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
             </TabsContent>
           </Tabs>
         </div>
-
-        {/* Mobile Chat/Stats Overlay */}
-        {showMobileChat && (
-          <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-50"
-            onClick={() => setShowMobileChat(false)}
-          >
-            <div
-              className="absolute bottom-0 left-0 right-0 bg-gray-900 rounded-t-xl max-h-[70vh] flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between p-4 border-b border-gray-800">
-                <h3 className="font-semibold">Live Chat & Stats</h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowMobileChat(false)}
-                >
-                  ✕
-                </Button>
-              </div>
-
-              <Tabs defaultValue="chat" className="flex-1 flex flex-col">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-800 mx-4 mt-2">
-                  <TabsTrigger value="chat">Chat</TabsTrigger>
-                  <TabsTrigger value="stats">Stats</TabsTrigger>
-                </TabsList>
-
-                <TabsContent
-                  value="chat"
-                  className="flex-1 flex flex-col px-4 pb-4"
-                >
-                  {/* Mobile Chat Messages */}
-                  <div className="flex-1 overflow-y-auto py-4 space-y-3 max-h-60">
-                    {chatMessages.map((msg, index) => (
-                      <div key={index} className="text-sm">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <span className="font-semibold text-blue-400 text-xs">
-                            {msg.user}
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {msg.time}
-                          </span>
-                        </div>
-                        <div className="text-gray-300 text-sm">
-                          {msg.message}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Mobile Chat Input */}
-                  <div className="flex space-x-2 pt-2 border-t border-gray-800">
-                    <Input
-                      placeholder="Type a message..."
-                      value={chatMessage}
-                      onChange={(e) => setChatMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                      className="bg-gray-800 border-gray-700 text-white text-sm"
-                    />
-                    <Button onClick={sendMessage} size="sm">
-                      Send
-                    </Button>
-                  </div>
-                </TabsContent>
-
-                <TabsContent
-                  value="stats"
-                  className="flex-1 p-4 space-y-4 overflow-y-auto"
-                >
-                  <Card className="bg-gray-800 border-gray-700">
-                    <CardHeader>
-                      <CardTitle className="text-sm">
-                        Match Statistics
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div>
-                        <div className="flex justify-between text-sm mb-1">
-                          <span>Possession</span>
-                          <span>
-                            {match.possession?.home || 58}% -{" "}
-                            {match.possession?.away || 42}%
-                          </span>
-                        </div>
-                        <Progress
-                          value={match.possession?.home || 58}
-                          className="h-2"
-                        />
-                      </div>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span>Shots</span>
-                          <span>
-                            {match.shots?.home || 12} - {match.shots?.away || 8}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Corners</span>
-                          <span>
-                            {match.corners?.home || 6} -{" "}
-                            {match.corners?.away || 3}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Fouls</span>
-                          <span>
-                            {match.fouls?.home || 8} - {match.fouls?.away || 11}
-                          </span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Mobile Recent Events */}
-                  <Card className="bg-gray-800 border-gray-700">
-                    <CardHeader>
-                      <CardTitle className="text-sm">Recent Events</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {(
-                          match.events || [
-                            {
-                              time: "78'",
-                              type: "goal",
-                              description: "Goal by K. De Bruyne",
-                            },
-                            {
-                              time: "72'",
-                              type: "yellow",
-                              description: "Yellow card",
-                            },
-                            {
-                              time: "67'",
-                              type: "goal",
-                              description: "Goal by E. Haaland",
-                            },
-                          ]
-                        )
-                          .slice(-3)
-                          .reverse()
-                          .map((event, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center space-x-3 text-sm"
-                            >
-                              <span className="font-mono text-gray-400 w-8 text-xs">
-                                {event.time}
-                              </span>
-                              <div
-                                className={`w-2 h-2 rounded-full ${
-                                  event.type === "goal"
-                                    ? "bg-green-500"
-                                    : "bg-yellow-500"
-                                }`}
-                              />
-                              <span className="flex-1 text-xs">
-                                {event.description}
-                              </span>
-                            </div>
-                          ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Footer */}
