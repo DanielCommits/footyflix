@@ -20,6 +20,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 
+type MatchEvent = {
+  time: string;
+  type: string;
+  description: string;
+};
+
 interface WatchPageProps {
   match: any;
   onBack: () => void;
@@ -376,7 +382,7 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                         )
                           .slice(-3)
                           .reverse()
-                          .map((event, index) => (
+                          .map((event: MatchEvent, index: number) => (
                             <div
                               key={index}
                               className="flex items-center space-x-3 text-sm"
@@ -520,7 +526,7 @@ export default function WatchPage({ match, onBack }: WatchPageProps) {
                     )
                       .slice(-3)
                       .reverse()
-                      .map((event, index) => (
+                      .map((event: MatchEvent, index: number) => (
                         <div
                           key={index}
                           className="flex items-center space-x-3 text-sm"
