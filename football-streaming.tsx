@@ -1,5 +1,52 @@
 "use client";
 
+type MatchEvent = {
+  time: string;
+  type: string;
+  team: string;
+  player: string;
+  description: string;
+};
+
+type LiveMatch = {
+  id: number;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  time: string;
+  league: string;
+  viewers: string;
+  isLive: boolean;
+  stadium: string;
+  possession: { home: number; away: number };
+  shots: { home: number; away: number };
+  corners: { home: number; away: number };
+  fouls: { home: number; away: number };
+  events: MatchEvent[];
+};
+
+type UpcomingMatch = {
+  id: number;
+  homeTeam: string;
+  awayTeam: string;
+  time: string;
+  date: string;
+  league: string;
+  stadium: string;
+  image: string;
+};
+
+// Add a type for calendar event details
+type CalendarEvent = {
+  title: string;
+  description: string;
+  location: string;
+  startDate: Date;
+  endDate: Date;
+  url: string;
+};
+
 import { useState, useEffect, useRef } from "react";
 import {
   Search,
@@ -30,13 +77,13 @@ export default function Component() {
   const desktopSearchRef = useRef<HTMLInputElement>(null);
   const mobileSearchRef = useRef<HTMLInputElement>(null);
   const [currentView, setCurrentView] = useState("home");
-  const [selectedMatch, setSelectedMatch] = useState(null);
+  const [selectedMatch, setSelectedMatch] = useState<LiveMatch | null>(null);
   const [showMatchDetails, setShowMatchDetails] = useState(false);
-  const [reminders, setReminders] = useState(new Set());
+  const [reminders, setReminders] = useState<Set<number>>(new Set());
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
 
-  const liveMatches = [
+  const liveMatches: LiveMatch[] = [
     {
       id: 1,
       homeTeam: "Manchester City",
@@ -195,7 +242,7 @@ export default function Component() {
     },
   ];
 
-  const upcomingMatches = [
+  const upcomingMatches: UpcomingMatch[] = [
     {
       id: 5,
       homeTeam: "Arsenal",
@@ -231,7 +278,7 @@ export default function Component() {
     },
   ];
 
-  const watchMatch = (match) => {
+  const watchMatch = (match: LiveMatch) => {
     setSelectedMatch(match);
     setCurrentView("watch");
   };
@@ -241,7 +288,7 @@ export default function Component() {
     setSelectedMatch(null);
   };
 
-  const setReminder = (matchId, matchInfo) => {
+  const setReminder = (matchId: number, matchInfo: UpcomingMatch) => {
     const newReminders = new Set(reminders);
     if (reminders.has(matchId)) {
       newReminders.delete(matchId);
@@ -268,7 +315,7 @@ export default function Component() {
     setTimeout(() => setShowNotification(false), 3000);
   };
 
-  const addToCalendar = (match, provider = "ics") => {
+  const addToCalendar = (match: UpcomingMatch, provider = "ics") => {
     const startDate = new Date();
     const [hours, minutes] = match.time.split(":").map(Number);
 
@@ -298,11 +345,11 @@ export default function Component() {
     }
   };
 
-  const formatDateForCalendar = (date) => {
+  const formatDateForCalendar = (date: Date): string => {
     return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
   };
 
-  const addToGoogleCalendar = (event) => {
+  const addToGoogleCalendar = (event: CalendarEvent): void => {
     const googleUrl = new URL("https://calendar.google.com/calendar/render");
     googleUrl.searchParams.set("action", "TEMPLATE");
     googleUrl.searchParams.set("text", event.title);
@@ -319,7 +366,7 @@ export default function Component() {
     window.open(googleUrl.toString(), "_blank");
   };
 
-  const addToOutlookCalendar = (event) => {
+  const addToOutlookCalendar = (event: CalendarEvent): void => {
     const outlookUrl = new URL(
       "https://outlook.live.com/calendar/0/deeplink/compose"
     );
@@ -332,7 +379,7 @@ export default function Component() {
     window.open(outlookUrl.toString(), "_blank");
   };
 
-  const downloadICSFile = (event) => {
+  const downloadICSFile = (event: CalendarEvent): void => {
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//FootyFlix//Football Match//EN
@@ -365,8 +412,10 @@ END:VCALENDAR`;
     setTimeout(() => setShowNotification(false), 3000);
   };
 
-  const getActiveReminders = () => {
-    return upcomingMatches.filter((match) => reminders.has(match.id));
+  const getActiveReminders = (): UpcomingMatch[] => {
+    return upcomingMatches.filter((match: UpcomingMatch) =>
+      reminders.has(match.id)
+    );
   };
 
   // Check for match start times and send notifications
