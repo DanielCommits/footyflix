@@ -1438,7 +1438,7 @@ END:VCALENDAR`;
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
               Built by{" "}
               <a
-                href="https://my-portfolio-phi-flax.vercel.app/"
+                href="https://d4knrick.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-red-400 hover:text-red-300"
