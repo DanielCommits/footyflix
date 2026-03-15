@@ -1343,7 +1343,7 @@ END:VCALENDAR`;
               <div className="flex space-x-4">
                 {/* X (Twitter) */}
                 <a
-                  href="https://twitter.com/d4knrick"
+                  href="https://x.com/d4knrick"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
